@@ -9,5 +9,5 @@ public class ResponseDTO {
 
     private String message;
 
-    private String statusHttp;
+    private Integer statusCode;
 }

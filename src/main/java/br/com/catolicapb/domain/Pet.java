@@ -1,17 +1,15 @@
 package br.com.catolicapb.domain;
 
-import br.com.catolicapb.enums.Species;
+import br.com.catolicapb.enums.Specie;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
 
 @Entity
-@Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@Builder
 public class Pet extends BaseEntity {
 
     @Id
@@ -21,8 +19,9 @@ public class Pet extends BaseEntity {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private Species species;
+    private Specie specie;
 
     @ManyToMany(mappedBy = "pets")
     private Set<Customer> customers;
+
 }

@@ -5,8 +5,8 @@ import br.com.catolicapb.dto.CustomerDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class CustomerMapper {
 
     private final PetMapper petMapper;
@@ -17,7 +17,7 @@ public class CustomerMapper {
         customer.setCpf(customerDTO.getCpf());
         customer.setName(customerDTO.getName());
         customer.setEmail(customerDTO.getEmail());
-        customer.setActive(true);
+        customer.setIsActive(true);
         customer.setContact(contactMapper.dtoToEntity(customerDTO.getContactDTO()));
         customer.setPets(petMapper.dtoToEntity(customerDTO.getPetsDTO()));
         return customer;

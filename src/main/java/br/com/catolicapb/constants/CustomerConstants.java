@@ -2,7 +2,11 @@ package br.com.catolicapb.constants;
 
 public class CustomerConstants {
 
-    public static final String EXIST_PET_TO_CUSTOMER = "Já existe pet para o cliente";
-    public static final String CUSTOMER_201_MESSAGE = "Cliente salvo com sucesso!";
-    public static final String CUSTOMER_201_STATUS = "201";
+    private CustomerConstants() { }
+
+    public static final String CODE_STATUS_404 = "404";
+    public static final Integer CODE_STATUS_201 = 201;
+
+    public static final String CUSTOMER_MESSAGE_PET_EXISTS_400 = "Pet já cadastrado para o customer";
+    public static final String CUSTOMER_MESSAGE_CREATED_201 = "Customer salvo com sucesso!";
 }

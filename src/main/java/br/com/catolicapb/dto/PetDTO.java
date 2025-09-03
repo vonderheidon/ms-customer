@@ -1,6 +1,8 @@
 package br.com.catolicapb.dto;
 
+import br.com.catolicapb.enums.Specie;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,9 +10,10 @@ import lombok.Data;
 @Builder
 public class PetDTO {
 
-    @NotBlank(message = "Pet's name cannot be null or empty")
+    @NotBlank(message = "Nome do Pet inválido")
+    @Size(min = 2, max = 30, message = "O nome do Pet deve conter entre 2 e 30 caracteres")
     private String name;
 
-    @NotBlank(message = "Pet's specie cannot be null or empty")
-    private String specie;
+    @NotBlank(message = "A especie do Pet deve ser inforamada")
+    private Specie specie;
 }

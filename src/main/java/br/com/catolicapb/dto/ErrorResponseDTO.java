@@ -1,14 +1,19 @@
 package br.com.catolicapb.dto;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
+@Builder
 public class ErrorResponseDTO {
 
-    private String uriPath;
-
-    private LocalDateTime errorTime;
+    private String apiPath;
 
     private String errorMessage;
 
-    private String httpErrorStatus;
+    private Integer errorStatusCode;
+
+    private LocalDateTime localDateTime;
 }

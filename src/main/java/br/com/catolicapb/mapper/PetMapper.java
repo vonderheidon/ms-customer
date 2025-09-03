@@ -11,7 +11,7 @@ import java.util.Set;
 @Component
 public interface PetMapper {
 
-    Set<Pet> dtoToEntity(Set<PetDTO> petsDTO);
+    Set<Pet> dtoToEntity(Set<PetDTO> petDTO);
 
-    Set<PetDTO> entityToDto(Set<Pet> pets);
+    Set<PetDTO> entityToDTO(Set<Pet> pets);
 }

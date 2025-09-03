@@ -6,9 +6,9 @@ import lombok.*;
 
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = true)
 public class Admin extends Person {
 

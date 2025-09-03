@@ -12,7 +12,7 @@ public class PetService {
 
     private final PetRepository petRepository;
 
-    public boolean existsPetFromCustomer(Long id, Set<String> petsName) {
-        return petRepository.existsPetFromCustomer(id, petsName);
+    public boolean existsPetToCustomer(Long id, Set<String> petsName) {
+        return petRepository.existPetToCustomer(id, petsName);
     }
 }

@@ -4,8 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class AlreadyExistsPetToCustomer extends RuntimeException {
-    public AlreadyExistsPetToCustomer(String message) {
-        super(message);
+public class AlreadyPetToCustomerException extends RuntimeException {
+
+    public AlreadyPetToCustomerException(String msg) {
+        super(msg);
     }
 }

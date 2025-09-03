@@ -8,9 +8,8 @@ import lombok.Data;
 @Data
 @Builder
 public class ContactDTO {
-
-    @NotBlank(message = "Mobile number cannot be null or empty")
-    @Size(min = 11, max = 11)
+    @NotBlank(message = "O campo mobile number é obrigatório")
+    @Size(min = 14, max = 14, message = "Valor invalido para o mobile number")
     private String mobileNumber;
 
     private String phone;

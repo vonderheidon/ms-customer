@@ -5,9 +5,11 @@ import br.com.catolicapb.dto.ContactDTO;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
 @Component
+@Mapper(componentModel = "spring")
 public interface ContactMapper {
 
     Contact dtoToEntity(ContactDTO contactDTO);
+
+    ContactDTO entityToDTOy(Contact contact);
 }

@@ -1,43 +1,36 @@
 package br.com.catolicapb.domain;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @MappedSuperclass
 public class BaseEntity {
 
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime cratedAt;
 
-    @Column(insertable = false)
     private LocalDateTime updatedAt;
 
-    private boolean isActive;
+    private Boolean isActive;
 
     @PrePersist
-    public void preCreate() {
-        this.createdAt = LocalDateTime.now();
-        setActive(true);
+    public void prePersist() {
+        this.cratedAt = LocalDateTime.now();
+        this.isActive = true;
     }
 
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
-        if (Objects.isNull(this.isActive)) {
-            setActive(true);
-        }
     }
 
-    public boolean isActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 }
