@@ -31,6 +31,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleCustomerNotFound
+            (CustomerNotFoundException ex, WebRequest req) {
+        var errorResponseDTO = ErrorResponseDTO.builder()
+                .apiPath(req.getDescription(false))
+                .errorMessage(ex.getMessage())
+                .errorStatusCode(HttpStatus.NOT_FOUND.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.NOT_FOUND);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid
             (MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {

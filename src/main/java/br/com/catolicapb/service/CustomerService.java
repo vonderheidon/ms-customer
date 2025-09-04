@@ -4,6 +4,7 @@ import br.com.catolicapb.domain.Customer;
 import br.com.catolicapb.dto.CustomerDTO;
 import br.com.catolicapb.dto.PetDTO;
 import br.com.catolicapb.exception.AlreadyPetToCustomerException;
+import br.com.catolicapb.exception.CustomerNotFoundException;
 import br.com.catolicapb.mapper.ContactMapper;
 import br.com.catolicapb.mapper.CustomerMapper;
 import br.com.catolicapb.mapper.PetMapper;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static br.com.catolicapb.constants.CustomerConstants.CUSTOMER_MESSAGE_NOT_FOUND_404;
 import static br.com.catolicapb.constants.CustomerConstants.CUSTOMER_MESSAGE_PET_EXISTS_400;
 
 
@@ -42,6 +44,33 @@ public class CustomerService {
         }
 
         customerRepository.save(customer.get());
+    }
+
+    public void update(String cpf, CustomerDTO customerDTO) {
+        var customer = customerRepository.findByCpf(cpf)
+                .orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_MESSAGE_NOT_FOUND_404));
+
+        customer.setName(customerDTO.getName());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setContact(contactMapper.dtoToEntity(customerDTO.getContactDTO()));
+
+        if (customerDTO.getPetsDTO() != null && !customerDTO.getPetsDTO().isEmpty()) {
+            existsPetToCustomer(customer, customerDTO.getPetsDTO());
+        }
+
+        customerRepository.save(customer);
+    }
+
+    public String toggleActiveStatus(String cpf) {
+        var customer = customerRepository.findByCpf(cpf)
+                .orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_MESSAGE_NOT_FOUND_404));
+
+        boolean newStatus = !customer.getIsActive();
+        customer.setIsActive(newStatus);
+
+        customerRepository.save(customer);
+
+        return newStatus ? "ativado" : "desativado";
     }
 
     public void existsPetToCustomer(Customer customer, Set<PetDTO> petsDTO) {
