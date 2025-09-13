@@ -1,8 +1,10 @@
 package br.com.catolicapb.controller;
 
+import br.com.catolicapb.client.dto.ProductDTO;
 import br.com.catolicapb.dto.CustomerDTO;
 import br.com.catolicapb.dto.ResponseDTO;
 import br.com.catolicapb.service.CustomerService;
+import br.com.catolicapb.service.ProductClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,7 @@ import static br.com.catolicapb.constants.CustomerConstants.*;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final ProductClientService productClientService;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> save(@Valid @RequestBody CustomerDTO customerDTO) {
@@ -55,6 +58,12 @@ public class CustomerController {
                         .statusCode(CODE_STATUS_200)
                         .message(message)
                         .build());
+    }
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
+        ProductDTO productDTO = productClientService.findProductById(id);
+        return ResponseEntity.ok(productDTO);
     }
 
 }

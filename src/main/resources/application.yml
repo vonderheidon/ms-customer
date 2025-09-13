@@ -2,10 +2,12 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: ms-customer
   datasource:
     url: jdbc:postgresql://localhost:5432/ms-customer
     username: postgres
-    password: 12345678
+    password: LEGALIZE A MACONHA LULA
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -14,3 +16,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+#feign:
+#  product:
+#    url: http://localhost:8082/api/v1/product
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
