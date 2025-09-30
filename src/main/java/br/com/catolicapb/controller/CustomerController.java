@@ -3,6 +3,7 @@ package br.com.catolicapb.controller;
 import br.com.catolicapb.client.dto.ProductDTO;
 import br.com.catolicapb.dto.CustomerDTO;
 import br.com.catolicapb.dto.ResponseDTO;
+import br.com.catolicapb.messenger.dto.ScheduleRequestDTO;
 import br.com.catolicapb.service.CustomerService;
 import br.com.catolicapb.service.ProductClientService;
 import jakarta.validation.Valid;
@@ -66,4 +67,13 @@ public class CustomerController {
         return ResponseEntity.ok(productDTO);
     }
 
+    @PostMapping("/create-async")
+    public ResponseEntity<ResponseDTO> saveAsync(@RequestBody ScheduleRequestDTO scheduleRequestDTO) {
+        customerService.saveScheduleAsync(scheduleRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ResponseDTO.builder()
+                        .statusCode(CODE_STATUS_201)
+                        .message(CUSTOMER_MESSAGE_CREATED_201)
+                        .build());
+    }
 }

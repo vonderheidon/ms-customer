@@ -1,0 +1,40 @@
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  eureka-server:
+    image: "seu_usuario/sua_imagem_docker"
+    container_name: "eureka-server"
+    ports:
+      - "8761:8761"
+
+  customer_db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: suasenha
+      POSTGRES_DB: ms-customer
+    volumes:
+      - customer_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+  ms-customer:
+    image: "seu_usuario/sua_imagem_docker"
+    container_name: "ms-customer"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - customer_db
+      - eureka-server
+      - rabbitmq
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://customer_db:5432/ms-customer
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=suasenha

@@ -8,6 +8,8 @@ import br.com.catolicapb.exception.CustomerNotFoundException;
 import br.com.catolicapb.mapper.ContactMapper;
 import br.com.catolicapb.mapper.CustomerMapper;
 import br.com.catolicapb.mapper.PetMapper;
+import br.com.catolicapb.messenger.dto.ScheduleRequestDTO;
+import br.com.catolicapb.messenger.producer.RabbitQueueScheduleProducer;
 import br.com.catolicapb.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,7 @@ public class CustomerService {
     private final CustomerMapper customerMapper;
     private final CustomerRepository customerRepository;
     private final ContactMapper contactMapper;
+    private final RabbitQueueScheduleProducer scheduleProducer;
 
     public void save(CustomerDTO customerDTO) {
         var customer = customerRepository.findByCpfAndIsActiveTrue(customerDTO.getCpf());
@@ -101,5 +104,9 @@ public class CustomerService {
                         .petsDTO(petMapper.entityToDTO(c.getPets()))
                         .build()
         );
+    }
+
+    public void saveScheduleAsync(ScheduleRequestDTO requestDTO) {
+        scheduleProducer.sendMessage(requestDTO);
     }
 }
